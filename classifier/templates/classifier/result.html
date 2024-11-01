@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Result{% endblock %}
+
+{% block content %}
+<h2>Classification Result</h2>
+<div class="alert alert-info" role="alert">
+    {{ result }}
+</div>
+<a class="btn btn-primary" href="{% url 'classify' %}">Classify Again</a>
+{% endblock %}
