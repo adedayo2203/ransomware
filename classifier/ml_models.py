@@ -15,4 +15,4 @@ def predict_ransomware(features, model_type='rf'):
         prediction = nb_model.predict(features)
     else:
         raise ValueError("Invalid model type. Choose 'rf' or 'nb'.")
-    return "Ransomware" if prediction[0] == 1 else "Benign"
+    return "Benign" if prediction[0] == 1 else "Malicious"
