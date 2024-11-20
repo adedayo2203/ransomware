@@ -6,12 +6,22 @@ def home(request):
 
 def classify(request):
     if request.method == 'POST':
-        feature_names = ['machine', 'debug_size', 'debug_rva', 'major_image_version', 'major_os_version',
-                         'export_rva', 'export_size', 'iat_vra', 'major_linker_version', 'minor_linker_version',
-                         'number_of_sections', 'size_of_stack_reserve', 'dll_characteristics', 'resource_size', 'bitcoin_addresses']
+        feature_names = ['Machine', 'DebugSize', 'DebugRVA', 'MajorImageVersion', 'MajorOSVersion',
+                'ExportRVA', 'ExportSize', 'IatVRA', 'MajorLinkerVersion', 'MinorLinkerVersion',
+                'NumberOfSections', 'SizeOfStackReserve', 'DllCharacteristics', 'ResourceSize', 'BitcoinAddresses']
         
-        features = [float(request.POST.get(f, 0)) for f in feature_names]
+        initial_classification = request.POST.get('classification_result') 
+        
+        features = []
+        for f in feature_names:
+            value = request.POST.get(f)
+            try:
+                features.append(float(value))
+            except (TypeError, ValueError):
+                # Handle the error, e.g., log it, set a default value, or return an error response
+                features.append(0)  # or handle it in a way that makes sense for your application
         model_type = request.POST.get('model_type')
         result = predict_ransomware(features, model_type)
-        return render(request, 'classifier/result.html', {'result': result})
+        return render(request, 'classifier/result.html', {'result': result, 
+                                                          'initial_classification': initial_classification})
     return render(request, 'classifier/classify.html')

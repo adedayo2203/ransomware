@@ -3,9 +3,19 @@
 {% block title %}Result{% endblock %}
 
 {% block content %}
-<h2>Classification Result</h2>
-<div class="alert alert-info" role="alert">
-    {{ result }}
+<div class="row">
+    <div class="col-md-6">
+        <h2>Model Classification Result</h1>
+        <div class="alert alert-info" role="alert">
+            {{ result }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2>Model Classification Result</h1>
+        <div class="alert alert-secondary" role="alert">
+            {{ initial_classification }}
+        </div>
+    </div>
 </div>
 <a class="btn btn-primary" href="{% url 'classify' %}">Classify Again</a>
 {% endblock %}
